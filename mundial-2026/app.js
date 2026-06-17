@@ -183,7 +183,7 @@ const DB = {
     const {data, error} = await sb.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: 'https://mundial-2026-dxct-8jm67ajlt-world-cup-2027.vercel.app/'
       }
     });
     if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
