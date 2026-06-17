@@ -263,7 +263,19 @@ input,select,textarea{font-family:inherit}
 <button onclick="handleGoogleSignIn()" style="position: fixed; bottom: 20px; right: 20px; background: #4285F4; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; z-index: 100;">
   👤 Google
 </button>
+<script>
+// Force Render URL for OAuth callback
+window.__REDIRECT_URL__ = 'https://mundial-2026-202j.onrender.com/';
 
+// Handle OAuth response
+if(window.location.hash.includes('access_token')) {
+  // Extract token from hash
+  const hash = window.location.hash.substring(1);
+  localStorage.setItem('sb-auth', hash);
+  // Redirect to clean URL
+  window.location.href = 'https://mundial-2026-202j.onrender.com/';
+}
+</script>
 <script>
 async function handleGoogleSignIn() {
   try {
