@@ -295,6 +295,20 @@ document.addEventListener('DOMContentLoaded', function(){
 <script src="config.js"></script>
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script>
+// Handle OAuth callback - redirect back to clean URL
+window.addEventListener('load', function() {
+  if(window.location.hash && window.location.hash.includes('access_token')) {
+    // ה-token בקריאה חזרה - בואו נטעון את המשתמש
+    if(DB && DB.handleAuthCallback) {
+      DB.handleAuthCallback().then(() => {
+        // נקה את ה-hash
+        window.history.replaceState({}, document.title, window.location.pathname);
+      });
+    }
+  }
+});
+</script>
 
 <!-- רישום Service Worker ל-PWA -->
 <script>
