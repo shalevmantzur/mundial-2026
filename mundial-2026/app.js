@@ -178,14 +178,19 @@ const DB = {
   },
 
   async signInWithGoogle(){
-    if(!LIVE) throw new Error('Google Sign-In זמין רק במצב חי');
-    DBG.info('התחברות עם Google...');
-    const {data, error} = await sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'https://mundial-2026-202j.onrender.com/'
-      }
-   async handleAuthCallback(){
+  if(!LIVE) throw new Error('Google Sign-In זמין רק במצב חי');
+  DBG.info('התחברות עם Google...');
+  const {data, error} = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'https://mundial-2026-202j.onrender.com/'
+    }
+  });
+  if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
+  DBG.info('הועבר ל-Google...');
+},
+
+async handleAuthCallback(){
   try {
     const {data, error} = await sb.auth.getSession();
     if(data?.session){
@@ -200,12 +205,8 @@ const DB = {
   } catch(e) {
     DBG.error('בדיקת session נכשלה: '+e.message);
   }
-}
-   
-    });
-    if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
-    DBG.info('הועבר ל-Google...');
-  },
+},
+  
 
   async signIn(username, password){
     DBG.info('ניסיון התחברות', {username, mode:MODE});
