@@ -274,7 +274,9 @@ async function handleGoogleSignIn() {
 }
 
 // בדוק אם יש session מGoogle
-DB.handleAuthCallback();
+if(DB && DB.handleAuthCallback) {
+  DB.handleAuthCallback();
+}
 </script>
 
 <!-- כפתור דיבאג צף -->
