@@ -183,7 +183,8 @@ const DB = {
   const {data, error} = await sb.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://mundial-2026-202j.onrender.com/'
+      redirectTo: 'https://mundial-2026-202j.onrender.com/auth/v1/callback'
+
     }
   });
   if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
