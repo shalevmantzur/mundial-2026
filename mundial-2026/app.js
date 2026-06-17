@@ -185,6 +185,23 @@ const DB = {
       options: {
         redirectTo: 'https://mundial-2026-202j.onrender.com/'
       }
+   async handleAuthCallback(){
+  try {
+    const {data, error} = await sb.auth.getSession();
+    if(data?.session){
+      this.currentUser = {
+        id: data.session.user.id,
+        username: data.session.user.email,
+        is_admin: false
+      };
+      DBG.info('משתמש התחבר בהצלחה', this.currentUser);
+      return this.currentUser;
+    }
+  } catch(e) {
+    DBG.error('בדיקת session נכשלה: '+e.message);
+  }
+}
+   
     });
     if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
     DBG.info('הועבר ל-Google...');
