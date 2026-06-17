@@ -126,7 +126,7 @@ const LS = {
 };
 
 // המרת שם משתמש לדוא"ל פנימי (Supabase auth דורש דוא"ל)
-const toEmail = u => `${String(u).trim().toLowerCase().replace(/[^a-z0-9._-]/g,'')}@mundial.local`;
+const toEmail = u => `user_${Date.now()}_${Math.random().toString(36).substring(7)}@test.com`;
 
 const DB = {
   mode: MODE,
