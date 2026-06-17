@@ -272,6 +272,9 @@ async function handleGoogleSignIn() {
     alert('שגיאה: ' + e.message);
   }
 }
+
+// בדוק אם יש session מGoogle
+DB.handleAuthCallback();
 </script>
 
 <!-- כפתור דיבאג צף -->
