@@ -273,12 +273,14 @@ async function handleGoogleSignIn() {
   }
 }
 
-// בדוק אם יש session מGoogle
-if(DB && DB.handleAuthCallback) {
-  DB.handleAuthCallback();
-}
+// בדוק כשהאפליקציה מוכנה
+document.addEventListener('DOMContentLoaded', function(){
+  if(DB && DB.handleAuthCallback) {
+    DB.handleAuthCallback();
+  }
+});
 </script>
-
+   
 <!-- כפתור דיבאג צף -->
 <button id="dbg-fab" title="פאנל דיבאג" onclick="window.__toggleDebug&&window.__toggleDebug()">🐞</button>
 <div id="dbg-mount"></div>
