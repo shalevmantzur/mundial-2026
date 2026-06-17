@@ -264,6 +264,18 @@ input,select,textarea{font-family:inherit}
   👤 Google
 </button>
 <script>
+// Intercept OAuth callback
+const urlParams = new URLSearchParams(window.location.hash.substring(1));
+if(urlParams.has('access_token')) {
+  // זה callback מGoogle!
+  setTimeout(() => {
+    if(DB && DB.handleAuthCallback) {
+      DB.handleAuthCallback();
+    }
+  }, 500);
+}
+</script>   
+<script>
 // Force Render URL for OAuth callback
 window.__REDIRECT_URL__ = 'https://mundial-2026-202j.onrender.com/';
 
