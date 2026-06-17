@@ -126,7 +126,7 @@ const LS = {
 };
 
 // המרת שם משתמש לדוא"ל פנימי (Supabase auth דורש דוא"ל)
-const toEmail = u => `${u}${Date.now()}@test.com`;
+const toEmail = u => `${String(u).trim().toLowerCase().replace(/[^a-z0-9._-]/g,'')}@mundial.local`;
 
 const DB = {
   mode: MODE,
@@ -183,7 +183,7 @@ const DB = {
     const {data, error} = await sb.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://zyggyztkbzgbjcuznlzr.supabase.co/auth/v1/callback'
+        redirectTo: window.location.origin
       }
     });
     if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
