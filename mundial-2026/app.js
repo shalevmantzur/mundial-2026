@@ -183,8 +183,7 @@ const DB = {
   const {data, error} = await sb.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://mundial-2026-202j.onrender.com/auth/v1/callback'
-
+      redirectTo: window.location.origin + '/'
     }
   });
   if(error) {DBG.error('Google Sign-In נכשל: '+error.message); throw new Error(error.message)}
@@ -193,6 +192,13 @@ const DB = {
 
 async handleAuthCallback(){
   try {
+    // בדוק אם יש hash עם access_token
+    if(window.location.hash && window.location.hash.includes('access_token')) {
+      DBG.info('קיבלנו token מGoogle, מעבדים...');
+      // קצת זמן כדי שSupabase יעבד
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    
     const {data, error} = await sb.auth.getSession();
     if(data?.session){
       this.currentUser = {
@@ -201,6 +207,10 @@ async handleAuthCallback(){
         is_admin: false
       };
       DBG.info('משתמש התחבר בהצלחה', this.currentUser);
+      
+      // נקה את ה-hash
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
       return this.currentUser;
     }
   } catch(e) {
